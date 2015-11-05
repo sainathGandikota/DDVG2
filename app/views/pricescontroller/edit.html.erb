@@ -1,0 +1,32 @@
+<h1>Editing prices</h1>
+
+<%= error_messages_for :prices %>
+
+<% form_for(@prices) do |f| %>
+  <p>
+    <b>Vendor</b><br />
+    <%= f.text_field :vendor %>
+  </p>
+
+  <p>
+    <b>Grade</b><br />
+    <%= f.text_field :grade %>
+  </p>
+
+  <p>
+    <b>Amount</b><br />
+    <%= f.text_field :amount %>
+  </p>
+
+  <p>
+    <b>Update by</b><br />
+    <%= f.text_field :update_by %>
+  </p>
+
+  <p>
+    <%= f.submit "Update" %>
+  </p>
+<% end %>
+
+<%= link_to 'Show', @prices %> |
+<%= link_to 'Back', prices_path %>

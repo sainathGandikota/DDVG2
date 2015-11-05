@@ -1,0 +1,33 @@
+<p>
+  <b>Effective:</b>
+  <%=h @transaction.effective %>
+</p>
+
+<p>
+  <b>Discontinue:</b>
+  <%=h @transaction.discontinue %>
+</p>
+
+<p>
+  <b>Price 087:</b>
+  <%=h @transaction.price_087 %>
+</p>
+
+<p>
+  <b>Price 089:</b>
+  <%=h @transaction.price_089 %>
+</p>
+
+<p>
+  <b>Price 091:</b>
+  <%=h @transaction.price_091 %>
+</p>
+
+<p>
+  <b>Updated by:</b>
+  <%=h @transaction.updated_by %>
+</p>
+
+
+<%= link_to 'Edit', edit_transaction_path(@transaction) %> |
+<%= link_to 'Back', transactions_path %>

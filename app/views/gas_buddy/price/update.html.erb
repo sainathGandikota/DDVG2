@@ -1,0 +1,182 @@
+<vxml version="2.1">
+  <var name="grade" expr="''"/>
+  <var name="amount" expr="0"/>
+
+  <form id="get_grade">
+   <field name="grade">      
+      <grammar type="application/x-gsl" mode="voice">
+      <![CDATA[
+      [
+        regular {<grade "regular">}
+        midgrade {<grade "midgrade">}
+        premium {<grade "premium">}
+        none {<grade "none">}
+      ]
+      ]]>
+      </grammar>
+      <grammar type="application/x-gsl" mode="dtmf">
+      <![CDATA[
+      [
+        dtmf-1 {<grade "regular">}
+        dtmf-2 {<grade "midgrade">}
+        dtmf-3 {<grade "premium">}
+        dtmf-4 {<grade "none">}
+      ]
+      ]]>
+      </grammar>
+
+      <prompt>
+         <audio>Please select a grade to update.</audio>
+         <audio>Regular, midgrade, premium or none.</audio>
+      </prompt>
+      
+      <nomatch>
+         <audio>
+           Sorry. I didn't get that. 
+           Please say one of regular, midgrade, premium or none.
+         </audio>
+      </nomatch>
+      
+      <noinput>
+         <audio>Sorry. I couldn't hear you.</audio>
+         <reprompt/>
+      </noinput>
+
+      <help>
+        Please say a grade.  For example, say regular.
+        You can also enter the grade using the touch tone key pad.
+        For example, press 1 for regular, press 2 for midgrade,
+        press 3 for premium, and press 4 for none.
+      </help>
+      
+      <filled>
+        <assign name="document.grade" expr="grade"/>
+        You picked <value expr="grade"/>
+         <if cond="grade == 'regular'">
+            <goto next="#set_regular"/>
+         <elseif cond="grade == 'midgrade'"/>
+            <goto next="#set_midgrade"/>
+         <elseif cond="grade == 'premium'"/>
+            <goto next="#set_premium"/>
+         <elseif cond="grade == 'none'"/>
+          <goto next="#done"/>
+         </if>
+      </filled>
+   </field>
+  </form>
+
+  <form id="set_regular">
+    <var name="grade"/>
+    <var name="amount"/>
+    <var name="vendor_id" expr="application.vendor_id"/>
+    <field name="regular_price" type="currency">
+      <prompt bargein="false">
+        The current price of regular is <value expr="application.regular"/>
+        <break time="500"/>
+        Please enter the new price
+      </prompt>
+      <catch event="noinput nomatch">
+        Sorry. I didn't get that.
+        <reprompt/>
+      </catch>
+      <filled>
+        <audio>
+          The price of regular at this location is set to
+          <say-as type="currency"><value expr="regular_price"/></say-as>
+        </audio>
+        <break time="500"/>
+        <assign name="document.amount" expr="regular_price"/>
+        <assign name="grade" expr="document.grade"/>
+        <assign name="amount" expr="document.amount"/>
+        <submit next="/gas_buddy/prices/add" namelist="vendor_id grade amount"/>
+      </filled>
+    </field>
+  </form>
+
+  <form id="set_midgrade">
+    <var name="grade"/>
+    <var name="amount"/>
+    <var name="vendor_id" expr="application.vendor_id"/>
+    <field name="midgrade_price" type="currency">
+      <prompt bargein="false">
+        The current price of midgrade is <value expr="application.midgrade"/>
+        <break time="500"/>
+        Please enter the new price
+      </prompt>
+      <catch event="noinput nomatch">
+        Sorry. I didn't get that.
+        <reprompt/>
+      </catch>
+      <filled>
+        <audio>
+          The price of midgrade at this location is set to
+          <say-as type="currency"><value expr="midgrade_price"/></say-as>
+        </audio>
+        <break time="500"/>
+        <assign name="document.amount" expr="midgrade_price"/>
+        <assign name="grade" expr="document.grade"/>
+        <assign name="amount" expr="document.amount"/>
+        <submit next="/gas_buddy/prices/add" namelist="vendor_id grade amount"/>
+      </filled>
+    </field>
+  </form>
+
+  <form id="set_premium">
+    <var name="grade"/>
+    <var name="amount"/>
+    <var name="vendor_id" expr="application.vendor_id"/>
+    <field name="premium_price" type="currency">
+      <prompt bargein="false">Please enter the price for premium</prompt>
+      <prompt bargein="false">
+        The current price of premium is <value expr="application.premium"/>
+        <break time="500"/>
+        Please enter the new price
+      </prompt>
+      <catch event="noinput nomatch">
+        Sorry. I didn't get that.
+        <reprompt/>
+      </catch>
+      <filled>
+        <audio>
+          The price of premium at this location is set to
+          <say-as type="currency"><value expr="premium_price"/></say-as>
+        </audio>
+        <break time="500"/>
+        <assign name="document.amount" expr="premium_price"/>
+        <assign name="grade" expr="document.grade"/>
+        <assign name="amount" expr="document.amount"/>
+        <submit next="/gas_buddy/prices/add" namelist="vendor_id grade amount"/>
+      </filled>
+    </field>
+  </form>
+
+<!--
+  <form id="want_to_set_another_price">
+    <field name="yesno" type="boolean">
+      <prompt bargein="false">
+        Do you want to update price for another grade?
+        Please say yes or no.
+      </prompt>
+      <catch event="noinput nomatch">
+        Sorry. I didn't get that.
+        <reprompt/>
+      </catch>
+      <filled>
+        <if cond="yesno">
+          <goto next="#get_grade"/>
+        <else/>
+          <goto next="#done"/>
+        </if>
+        <break time="500"/>
+      </filled>
+    </field>
+  </form>
+-->
+
+  <form id="done">
+    <block>
+      <goto next="<%= @next %>#<%= @state %>"/>
+    </block>
+  </form>
+</vxml>
+

@@ -1,0 +1,18 @@
+<vxml version="2.1">
+  <var name="goto3" expr="'yes'"/>
+<% @states.each do |state| %>
+  <form id="state<%= state.id %>">
+    <%= state.to_vxml %>
+    <block>
+<%
+  transitions = Transition.where(from_state_id: state.id)
+  transitions.each do |transition|
+%>
+      <if cond="<%= transition.condition_text %>">
+        <goto next="#state<%= transition.to_state_id %>"/>
+      </if>
+<% end %>
+    </block>
+  </form>
+<% end %>
+</vxml>

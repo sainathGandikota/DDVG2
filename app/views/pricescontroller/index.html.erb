@@ -1,0 +1,26 @@
+<h1>Listing prices</h1>
+
+<table>
+  <tr>
+    <th>Vendor</th>
+    <th>Grade</th>
+    <th>Amount</th>
+    <th>Update by</th>
+  </tr>
+
+<% for prices in @prices %>
+  <tr>
+    <td><%=h prices.vendor %></td>
+    <td><%=h prices.grade %></td>
+    <td><%=h prices.amount %></td>
+    <td><%=h prices.update_by %></td>
+    <td><%= link_to 'Show', prices %></td>
+    <td><%= link_to 'Edit', edit_prices_path(prices) %></td>
+    <td><%= link_to 'Destroy', prices, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New prices', new_prices_path %>

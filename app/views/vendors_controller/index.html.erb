@@ -1,0 +1,40 @@
+<h1>Listing vendors</h1>
+
+<table>
+  <tr>
+    <th>Name</th>
+    <th>Address1</th>
+    <th>Address2</th>
+    <th>City</th>
+    <th>State</th>
+    <th>Zip</th>
+    <th>Country</th>
+    <th>Phone</th>
+    <th>Fax</th>
+    <th>Mobile</th>
+    <th>User</th>
+  </tr>
+
+<% for vendor in @vendors %>
+  <tr>
+    <td><%=h vendor.name %></td>
+    <td><%=h vendor.address1 %></td>
+    <td><%=h vendor.address2 %></td>
+    <td><%=h vendor.city %></td>
+    <td><%=h vendor.state %></td>
+    <td><%=h vendor.zip %></td>
+    <td><%=h vendor.country %></td>
+    <td><%=h vendor.phone %></td>
+    <td><%=h vendor.fax %></td>
+    <td><%=h vendor.mobile %></td>
+    <td><%=h vendor.user %></td>
+    <td><%= link_to 'Show', vendor %></td>
+    <td><%= link_to 'Edit', edit_vendor_path(vendor) %></td>
+    <td><%= link_to 'Destroy', vendor, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New vendor', new_vendor_path %>

@@ -1,0 +1,2 @@
+module GasBuddy::PriceHelper
+end

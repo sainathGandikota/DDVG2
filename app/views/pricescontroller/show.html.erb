@@ -1,0 +1,23 @@
+<p>
+  <b>Vendor:</b>
+  <%=h @prices.vendor %>
+</p>
+
+<p>
+  <b>Grade:</b>
+  <%=h @prices.grade %>
+</p>
+
+<p>
+  <b>Amount:</b>
+  <%=h @prices.amount %>
+</p>
+
+<p>
+  <b>Update by:</b>
+  <%=h @prices.update_by %>
+</p>
+
+
+<%= link_to 'Edit', edit_prices_path(@prices) %> |
+<%= link_to 'Back', prices_path %>

@@ -1,0 +1,13 @@
+<vxml version="2.1">
+  <form>
+    <block>
+    <% params.each do |key, value| %>
+      <audio><%= key %> equals <%= value %></audio>
+    <% end %>
+    </block>
+    <block>
+      <goto next="/static/vxml/update_price.vxml#want_to_set_another_price"/>
+    </block>
+  </form>
+</vxml>
+

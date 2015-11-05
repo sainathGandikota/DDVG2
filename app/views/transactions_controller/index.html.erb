@@ -1,0 +1,30 @@
+<h1>Listing transactions</h1>
+
+<table>
+  <tr>
+    <th>Effective</th>
+    <th>Discontinue</th>
+    <th>Price 087</th>
+    <th>Price 089</th>
+    <th>Price 091</th>
+    <th>Updated by</th>
+  </tr>
+
+<% for transaction in @transactions %>
+  <tr>
+    <td><%=h transaction.effective %></td>
+    <td><%=h transaction.discontinue %></td>
+    <td><%=h transaction.price_087 %></td>
+    <td><%=h transaction.price_089 %></td>
+    <td><%=h transaction.price_091 %></td>
+    <td><%=h transaction.updated_by %></td>
+    <td><%= link_to 'Show', transaction %></td>
+    <td><%= link_to 'Edit', edit_transaction_path(transaction) %></td>
+    <td><%= link_to 'Destroy', transaction, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New transaction', new_transaction_path %>
